@@ -7,36 +7,34 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from "@/utils";
-
-// Admin credentials - Change these to your preferred credentials
-const ADMIN_ID = "SuperAdmin@2026";
-const ADMIN_PASSWORD = "X#9kLm!Qr$7vZp";
+import { supabase } from '@/integrations/supabase/client';
 
 export default function AdminLogin() {
-  const [adminId, setAdminId] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Simulate a small delay for UX
-    setTimeout(() => {
-      if (adminId === ADMIN_ID && password === ADMIN_PASSWORD) {
-        // Store auth in sessionStorage
-        sessionStorage.setItem('adminAuth', 'true');
-        sessionStorage.setItem('adminAuthTime', Date.now().toString());
-        navigate(createPageUrl('Admin'));
-      } else {
-        setError('Invalid Admin ID or Password');
-      }
+    const { error: authError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (authError) {
+      setError('Invalid email or password');
       setIsLoading(false);
-    }, 500);
+      return;
+    }
+
+    navigate(createPageUrl('Admin'));
+    setIsLoading(false);
   };
 
   return (
@@ -65,13 +63,13 @@ export default function AdminLogin() {
           <CardContent className="pt-6">
             <form onSubmit={handleLogin} className="space-y-4">
               <div>
-                <Label htmlFor="adminId" className="text-[#1a1a1a]">Admin ID</Label>
+                <Label htmlFor="email" className="text-[#1a1a1a]">Email</Label>
                 <Input
-                  id="adminId"
-                  type="text"
-                  value={adminId}
-                  onChange={(e) => setAdminId(e.target.value)}
-                  placeholder="Enter your admin ID"
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your admin email"
                   className="mt-1 border-[#e0e0e0] focus:border-[#8b5cf6]"
                   required
                 />

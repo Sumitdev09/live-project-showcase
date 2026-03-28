@@ -11,7 +11,7 @@ import CareerSection from '@/components/portfolio/CareerSection';
 import ProjectsSection from '@/components/portfolio/ProjectsSection';
 import BlogSection from '@/components/portfolio/BlogSection';
 import ContactSection from '@/components/portfolio/ContactSection';
-import DownloadSection from '@/components/portfolio/DownloadSection';
+
 import Footer from '@/components/portfolio/Footer';
 import SectionDivider from '@/components/portfolio/SectionDivider';
 
@@ -77,7 +77,7 @@ export default function Home() {
       <ProjectsSection projects={projects || []} />
       <BlogSection posts={posts || []} />
       <ContactSection profile={profile} />
-      <DownloadSection />
+      
       <Footer profile={profile} />
     </div>
   );

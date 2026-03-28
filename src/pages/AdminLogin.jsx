@@ -9,8 +9,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { createPageUrl } from "@/utils";
 
 // Admin credentials - Change these to your preferred credentials
-const ADMIN_ID = "admin2024";
-const ADMIN_PASSWORD = "Portfolio@123";
+const ADMIN_ID = "SuperAdmin@2026";
+const ADMIN_PASSWORD = "X#9kLm!Qr$7vZp";
 
 export default function AdminLogin() {
   const [adminId, setAdminId] = useState('');

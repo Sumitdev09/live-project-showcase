@@ -107,7 +107,7 @@ export default function HeroSection({ profile }) {
           className="flex items-center gap-4 mb-7"
         >
           <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#8B1A1A]" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8c4c4] via-[#f0d6d6] to-[#e8c4c4] text-sm sm:text-base md:text-lg font-bold tracking-[0.22em] uppercase whitespace-nowrap drop-shadow-sm">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8c4c4] via-[#f0d6d6] to-[#e8c4c4] text-xs sm:text-base md:text-lg font-bold tracking-[0.15em] sm:tracking-[0.22em] uppercase drop-shadow-sm text-center">
             {profile?.title || 'Full Stack Developer'}
           </span>
           <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#8B1A1A]" />

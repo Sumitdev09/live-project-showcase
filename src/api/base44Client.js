@@ -246,7 +246,16 @@ const SEED_DATA = {
   ],
 };
 
+const SEED_VERSION = 'v3';
+
 function getStore(entityName) {
+  const versionKey = `portfolio_seed_version`;
+  const storedVersion = localStorage.getItem(versionKey);
+  if (storedVersion !== SEED_VERSION) {
+    // Clear all old data and re-seed
+    Object.keys(SEED_DATA).forEach(name => localStorage.removeItem(`portfolio_${name}`));
+    localStorage.setItem(versionKey, SEED_VERSION);
+  }
   const key = `portfolio_${entityName}`;
   const stored = localStorage.getItem(key);
   if (stored) return JSON.parse(stored);

@@ -14,7 +14,273 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blog_posts: {
+        Row: {
+          content: string | null
+          cover_image: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          published: boolean | null
+          tags: Json | null
+          title: string
+        }
+        Insert: {
+          content?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean | null
+          tags?: Json | null
+          title: string
+        }
+        Update: {
+          content?: string | null
+          cover_image?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          published?: boolean | null
+          tags?: Json | null
+          title?: string
+        }
+        Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          read: boolean | null
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          read?: boolean | null
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          read?: boolean | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
+      education: {
+        Row: {
+          created_at: string
+          degree: string | null
+          description: string | null
+          end_year: number | null
+          field: string | null
+          id: string
+          institution: string
+          start_year: number | null
+        }
+        Insert: {
+          created_at?: string
+          degree?: string | null
+          description?: string | null
+          end_year?: number | null
+          field?: string | null
+          id?: string
+          institution: string
+          start_year?: number | null
+        }
+        Update: {
+          created_at?: string
+          degree?: string | null
+          description?: string | null
+          end_year?: number | null
+          field?: string | null
+          id?: string
+          institution?: string
+          start_year?: number | null
+        }
+        Relationships: []
+      }
+      experiences: {
+        Row: {
+          company: string
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          is_current: boolean | null
+          location: string | null
+          position: string
+          start_date: string | null
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_current?: boolean | null
+          location?: string | null
+          position: string
+          start_date?: string | null
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          is_current?: boolean | null
+          location?: string | null
+          position?: string
+          start_date?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          achievements: Json | null
+          bio: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          github: string | null
+          id: string
+          instagram: string | null
+          interests: Json | null
+          linkedin: string | null
+          location: string | null
+          phone: string | null
+          photo_url: string | null
+          skill_stats: Json | null
+          skills: Json | null
+          title: string | null
+          tools: Json | null
+          twitter: string | null
+          updated_at: string
+        }
+        Insert: {
+          achievements?: Json | null
+          bio?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          github?: string | null
+          id?: string
+          instagram?: string | null
+          interests?: Json | null
+          linkedin?: string | null
+          location?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          skill_stats?: Json | null
+          skills?: Json | null
+          title?: string | null
+          tools?: Json | null
+          twitter?: string | null
+          updated_at?: string
+        }
+        Update: {
+          achievements?: Json | null
+          bio?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          github?: string | null
+          id?: string
+          instagram?: string | null
+          interests?: Json | null
+          linkedin?: string | null
+          location?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          skill_stats?: Json | null
+          skills?: Json | null
+          title?: string | null
+          tools?: Json | null
+          twitter?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          featured: boolean | null
+          github_url: string | null
+          id: string
+          image_url: string | null
+          live_url: string | null
+          material_url: string | null
+          technologies: Json | null
+          title: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean | null
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          live_url?: string | null
+          material_url?: string | null
+          technologies?: Json | null
+          title: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean | null
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          live_url?: string | null
+          material_url?: string | null
+          technologies?: Json | null
+          title?: string
+        }
+        Relationships: []
+      }
+      skill_categories: {
+        Row: {
+          created_at: string
+          icon_name: string | null
+          id: string
+          skills: Json | null
+          sort_order: number | null
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          icon_name?: string | null
+          id?: string
+          skills?: Json | null
+          sort_order?: number | null
+          title: string
+        }
+        Update: {
+          created_at?: string
+          icon_name?: string | null
+          id?: string
+          skills?: Json | null
+          sort_order?: number | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

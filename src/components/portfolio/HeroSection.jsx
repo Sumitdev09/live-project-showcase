@@ -106,11 +106,11 @@ export default function HeroSection({ profile }) {
           transition={{ delay: 0.4, duration: 0.7 }}
           className="flex items-center gap-4 mb-7"
         >
-          <div className="h-px w-12 sm:w-20 bg-[#8B1A1A]" />
-          <span className="text-white/70 text-xs sm:text-sm md:text-base font-semibold tracking-[0.18em] uppercase whitespace-nowrap">
+          <div className="h-px w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#8B1A1A]" />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#e8c4c4] via-[#f0d6d6] to-[#e8c4c4] text-sm sm:text-base md:text-lg font-bold tracking-[0.22em] uppercase whitespace-nowrap drop-shadow-sm" style={{ fontFamily: "'Caveat', cursive", letterSpacing: '0.12em', fontSize: 'clamp(16px, 2.5vw, 22px)' }}>
             {profile?.title || 'Full Stack Developer'}
           </span>
-          <div className="h-px w-12 sm:w-20 bg-[#8B1A1A]" />
+          <div className="h-px w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#8B1A1A]" />
         </motion.div>
 
         {/* bio */}

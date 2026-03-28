@@ -50,7 +50,7 @@ export default function Footer({ profile }) {
          
           <div className="flex items-center gap-6">
             <p className="text-[#666666] text-sm">
-              Design & Develop by Sumit Yadav <span className="text-[#8B1A1A]">X</span> Xalgoo
+              Design & Develop by Sumit Yadav <span className="text-[#8B1A1A]">X</span> Janhavi Dev
             </p>
            
             <motion.button

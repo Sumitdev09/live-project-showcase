@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
+import { supabase } from '@/integrations/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   User, Briefcase, GraduationCap, Folder, BookOpen, MessageSquare, BarChart3,
@@ -27,29 +28,31 @@ export default function Admin() {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('adminTheme') === 'dark');
   const navigate = useNavigate();
 
-  // Check authentication
+  // Check authentication via Supabase
   useEffect(() => {
-    const isAuth = sessionStorage.getItem('adminAuth');
-    const authTime = sessionStorage.getItem('adminAuthTime');
-   
-    // Session expires after 2 hours
-    const sessionDuration = 2 * 60 * 60 * 1000;
-    const isExpired = authTime && (Date.now() - parseInt(authTime)) > sessionDuration;
-   
-    if (!isAuth || isExpired) {
-      sessionStorage.removeItem('adminAuth');
-      sessionStorage.removeItem('adminAuthTime');
-      navigate(createPageUrl('AdminLogin'));
-    }
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate(createPageUrl('AdminLogin'));
+      }
+    };
+    checkAuth();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') {
+        navigate(createPageUrl('AdminLogin'));
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
   useEffect(() => {
     localStorage.setItem('adminTheme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
-  const handleLogout = () => {
-    sessionStorage.removeItem('adminAuth');
-    sessionStorage.removeItem('adminAuthTime');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     navigate(createPageUrl('Home'));
   };
 

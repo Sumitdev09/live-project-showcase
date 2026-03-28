@@ -77,7 +77,7 @@ export default function Home() {
       <ProjectsSection projects={projects || []} />
       <BlogSection posts={posts || []} />
       <ContactSection profile={profile} />
-      <DownloadSection />
+      
       <Footer profile={profile} />
     </div>
   );

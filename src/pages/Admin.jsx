@@ -255,6 +255,8 @@ function ProfileEditor({ profile }) {
   React.useEffect(() => {
     if (profile) setFormData(profile);
   }, [profile]);
+
+  const mutation = useMutation({
     mutationFn: async (data) => {
       if (profile?.id) {
         return base44.entities.Profile.update(profile.id, data);

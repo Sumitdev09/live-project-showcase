@@ -134,7 +134,7 @@ export default function Admin() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      <div className="max-w-7xl mx-auto px-6 py-8 pb-28">
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className={`p-1.5 rounded-xl border mb-8 flex-wrap h-auto gap-1 transition-colors ${darkMode ? 'bg-[#111] border-[#222]' : 'bg-white border-[#e0e0e0]'}`}>
             {tabs.map(tab => (
@@ -182,6 +182,53 @@ export default function Admin() {
             <MessagesViewer messages={messages || []} />
           </TabsContent>
         </Tabs>
+      </div>
+
+      {/* Sticky Bottom Save Button */}
+      <StickyUpdateButton darkMode={darkMode} />
+    </div>
+  );
+}
+
+// Sticky Update Button Component
+function StickyUpdateButton({ darkMode }) {
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    setSaving(true);
+    window.dispatchEvent(new Event('admin-save-all'));
+    // Give mutations time to fire, then show success
+    setTimeout(() => {
+      setSaving(false);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+    }, 1200);
+  };
+
+  return (
+    <div className={`fixed bottom-0 left-0 right-0 z-50 border-t transition-colors ${darkMode ? 'bg-[#111]/95 border-[#222] backdrop-blur-md' : 'bg-white/95 border-[#e0e0e0] backdrop-blur-md'}`}>
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-slate-500'}`}>
+          {saved ? '✅ All changes saved successfully!' : 'Make your changes above, then click to save.'}
+        </p>
+        <Button
+          onClick={handleSave}
+          disabled={saving}
+          className={`px-8 py-2.5 text-base font-semibold transition-all ${
+            saved
+              ? 'bg-green-600 hover:bg-green-700 text-white'
+              : 'bg-[#8B1A1A] hover:bg-[#6E1515] text-white shadow-lg hover:shadow-xl'
+          }`}
+        >
+          {saving ? (
+            <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Saving...</>
+          ) : saved ? (
+            <><CheckCircle className="w-5 h-5 mr-2" /> Saved!</>
+          ) : (
+            <><Save className="w-5 h-5 mr-2" /> Update Changes</>
+          )}
+        </Button>
       </div>
     </div>
   );

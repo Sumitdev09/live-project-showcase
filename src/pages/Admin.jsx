@@ -321,15 +321,12 @@ function ProfileEditor({ profile }) {
             />
           </div>
           <div>
-            <Label>Resume</Label>
-            <Label className="cursor-pointer">
-              <Button variant="outline" disabled={isUploading} asChild className="w-full">
-                <span>
-                  {formData.resume_url ? 'Change Resume' : 'Upload Resume'}
-                </span>
-              </Button>
-              <input type="file" accept=".pdf,.doc,.docx" onChange={handleResumeUpload} className="hidden" />
-            </Label>
+            <Label>Download CV Link</Label>
+            <Input
+              value={formData.resume_url || ''}
+              onChange={(e) => setFormData({ ...formData, resume_url: e.target.value })}
+              placeholder="https://drive.google.com/your-cv-link"
+            />
           </div>
         </div>
 

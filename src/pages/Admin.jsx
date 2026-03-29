@@ -241,11 +241,20 @@ function ProfileEditor({ profile }) {
   const [isUploading, setIsUploading] = useState(false);
   const [skillInput, setSkillInput] = useState('');
 
+  // Listen for global save event
+  React.useEffect(() => {
+    const handleGlobalSave = () => {
+      if (formData && (formData.full_name || formData.email || formData.bio)) {
+        mutation.mutate(formData);
+      }
+    };
+    window.addEventListener('admin-save-all', handleGlobalSave);
+    return () => window.removeEventListener('admin-save-all', handleGlobalSave);
+  }, [formData]);
+
   React.useEffect(() => {
     if (profile) setFormData(profile);
   }, [profile]);
-
-  const mutation = useMutation({
     mutationFn: async (data) => {
       if (profile?.id) {
         return base44.entities.Profile.update(profile.id, data);

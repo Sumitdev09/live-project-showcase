@@ -5,7 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   User, Briefcase, GraduationCap, Folder, BookOpen, MessageSquare, BarChart3,
-  Plus, Pencil, Trash2, Save, X, Loader2, Upload, ArrowLeft, LogOut, Sun, Moon
+  Plus, Pencil, Trash2, Save, X, Loader2, Upload, ArrowLeft, LogOut, Sun, Moon, CheckCircle
 } from 'lucide-react';
 import SkillsEditor from '@/components/admin/SkillsEditor';
 import { useNavigate } from 'react-router-dom';

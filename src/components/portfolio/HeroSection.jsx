@@ -187,7 +187,7 @@ export default function HeroSection({ profile }) {
         >
           {[
             { value: '2+',   label: 'Years Experience' },
-            { value: '20+',  label: 'Projects Done'    },
+            { value: '10+',  label: 'Projects Done'    },
             { value: '100%', label: 'Satisfaction'     },
           ].map((stat, i) => (
             <motion.div key={stat.label} className="text-center" whileHover={{ scale: 1.06 }}>

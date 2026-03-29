@@ -161,6 +161,7 @@ export type Database = {
           location: string | null
           phone: string | null
           photo_url: string | null
+          resume_url: string | null
           skill_stats: Json | null
           skills: Json | null
           title: string | null
@@ -182,6 +183,7 @@ export type Database = {
           location?: string | null
           phone?: string | null
           photo_url?: string | null
+          resume_url?: string | null
           skill_stats?: Json | null
           skills?: Json | null
           title?: string | null
@@ -203,6 +205,7 @@ export type Database = {
           location?: string | null
           phone?: string | null
           photo_url?: string | null
+          resume_url?: string | null
           skill_stats?: Json | null
           skills?: Json | null
           title?: string | null

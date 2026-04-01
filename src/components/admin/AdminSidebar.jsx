@@ -18,12 +18,12 @@ const NAV_ITEMS = [
   { id: 'messages', label: 'Messages', icon: MessageSquare, description: 'Contact messages' },
 ];
 
-export default function AdminSidebar({ activeTab, setActiveTab, collapsed, setCollapsed, counts = {} }) {
+export default function AdminSidebar({ activeTab, setActiveTab, collapsed, setCollapsed, counts = {}, isMobile = false }) {
   return (
     <motion.aside
-      animate={{ width: collapsed ? 72 : 260 }}
+      animate={{ width: isMobile ? '100%' : (collapsed ? 72 : 260) }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="fixed left-0 top-0 bottom-0 z-40 flex flex-col border-r border-[hsl(var(--border))] bg-gradient-to-b from-[#1a0505] via-[#2a0a0a] to-[#1a0505] text-white overflow-hidden"
+      className={`${isMobile ? 'relative w-full h-full' : 'fixed left-0 top-0 bottom-0 z-40'} flex flex-col border-r border-[hsl(var(--border))] bg-gradient-to-b from-[#1a0505] via-[#2a0a0a] to-[#1a0505] text-white overflow-hidden`}
     >
       {/* Logo area */}
       <div className="flex items-center justify-between px-4 py-5 border-b border-white/10">

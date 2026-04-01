@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 const NAV_ITEMS = [
   { id: 'profile', label: 'Profile', icon: User, description: 'Personal info & social links' },
+  { id: 'about', label: 'About Me', icon: Settings, description: 'About section content' },
   { id: 'experience', label: 'Experience', icon: Briefcase, description: 'Work history' },
   { id: 'education', label: 'Education', icon: GraduationCap, description: 'Academic background' },
   { id: 'projects', label: 'Projects', icon: Folder, description: 'Portfolio projects' },

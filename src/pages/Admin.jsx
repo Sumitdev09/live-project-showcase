@@ -73,6 +73,7 @@ export default function Admin() {
 
   const SECTION_TITLES = {
     profile: { title: 'Profile', subtitle: 'Manage your personal information' },
+    about: { title: 'About Me', subtitle: 'Edit your about section content' },
     experience: { title: 'Experience', subtitle: 'Your professional journey' },
     education: { title: 'Education', subtitle: 'Academic background & qualifications' },
     projects: { title: 'Projects', subtitle: 'Showcase your portfolio work' },

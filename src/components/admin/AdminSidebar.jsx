@@ -95,13 +95,15 @@ export default function AdminSidebar({ activeTab, setActiveTab, collapsed, setCo
             {!collapsed && <span className="text-sm">View Portfolio</span>}
           </button>
         </Link>
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-white/50 hover:text-white hover:bg-white/5 transition-all"
-        >
-          {collapsed ? <ChevronRight className="w-4 h-4 flex-shrink-0" /> : <ChevronLeft className="w-4 h-4 flex-shrink-0" />}
-          {!collapsed && <span className="text-sm">Collapse</span>}
-        </button>
+        {!isMobile && (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-white/50 hover:text-white hover:bg-white/5 transition-all"
+          >
+            {collapsed ? <ChevronRight className="w-4 h-4 flex-shrink-0" /> : <ChevronLeft className="w-4 h-4 flex-shrink-0" />}
+            {!collapsed && <span className="text-sm">Collapse</span>}
+          </button>
+        )}
       </div>
     </motion.aside>
   );

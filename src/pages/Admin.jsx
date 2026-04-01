@@ -3,9 +3,11 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { base44 } from '@/api/base44Client';
 import { supabase } from '@/integrations/supabase/client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogOut, Save, Loader2, CheckCircle, Bell } from 'lucide-react';
+import { LogOut, Save, Loader2, CheckCircle, Bell, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { createPageUrl } from "@/utils";
 
 // Admin components
@@ -44,6 +46,11 @@ export default function Admin() {
     navigate(createPageUrl('Home'));
   };
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    if (isMobile) setMobileSheetOpen(false);
+  };
+
   // Queries
   const { data: profiles } = useQuery({ queryKey: ['profile'], queryFn: () => base44.entities.Profile.list() });
   const { data: experiences } = useQuery({ queryKey: ['experiences'], queryFn: () => base44.entities.Experience.list('-start_date') });
@@ -75,34 +82,60 @@ export default function Admin() {
 
   const currentSection = SECTION_TITLES[activeTab];
 
+  const sidebarContent = (
+    <AdminSidebar
+      activeTab={activeTab}
+      setActiveTab={handleTabChange}
+      collapsed={isMobile ? false : sidebarCollapsed}
+      setCollapsed={setSidebarCollapsed}
+      counts={counts}
+      isMobile={isMobile}
+    />
+  );
+
   return (
     <div className="min-h-screen bg-[#f8f7f4]">
-      {/* Sidebar */}
-      <AdminSidebar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        collapsed={sidebarCollapsed}
-        setCollapsed={setSidebarCollapsed}
-        counts={counts}
-      />
+      {/* Desktop Sidebar */}
+      {!isMobile && sidebarContent}
+
+      {/* Mobile Sheet Sidebar */}
+      {isMobile && (
+        <Sheet open={mobileSheetOpen} onOpenChange={setMobileSheetOpen}>
+          <SheetContent side="left" className="p-0 w-[280px] bg-transparent border-none">
+            {sidebarContent}
+          </SheetContent>
+        </Sheet>
+      )}
 
       {/* Main Content */}
       <motion.div
-        animate={{ marginLeft: sidebarCollapsed ? 72 : 260 }}
+        animate={{ marginLeft: isMobile ? 0 : (sidebarCollapsed ? 72 : 260) }}
         transition={{ duration: 0.25, ease: 'easeInOut' }}
         className="min-h-screen"
       >
         {/* Top Header */}
         <div className="sticky top-0 z-30 bg-[#f8f7f4]/80 backdrop-blur-xl border-b border-[hsl(var(--border))]">
-          <div className="px-8 py-4 flex items-center justify-between">
-            <div>
-              <h1 className="text-xl font-bold text-[#1a1a1a]">{currentSection.title}</h1>
-              <p className="text-sm text-muted-foreground">{currentSection.subtitle}</p>
-            </div>
+          <div className="px-4 md:px-8 py-3 md:py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
+              {isMobile && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setMobileSheetOpen(true)}
+                  className="rounded-xl"
+                >
+                  <Menu className="w-5 h-5" />
+                </Button>
+              )}
+              <div>
+                <h1 className="text-lg md:text-xl font-bold text-[#1a1a1a]">{currentSection.title}</h1>
+                <p className="text-xs md:text-sm text-muted-foreground">{currentSection.subtitle}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 md:gap-3">
               {unreadMessages > 0 && (
                 <button
-                  onClick={() => setActiveTab('messages')}
+                  onClick={() => handleTabChange('messages')}
                   className="relative p-2 rounded-xl hover:bg-[#8B1A1A]/5 transition-colors"
                 >
                   <Bell className="w-5 h-5 text-muted-foreground" />
@@ -116,15 +149,15 @@ export default function Admin() {
                 variant="ghost"
                 className="text-red-500 hover:text-red-600 hover:bg-red-500/10 rounded-xl"
               >
-                <LogOut className="w-4 h-4 mr-2" />
-                Logout
+                <LogOut className="w-4 h-4 md:mr-2" />
+                <span className="hidden md:inline">Logout</span>
               </Button>
             </div>
           </div>
         </div>
 
         {/* Content */}
-        <div className="p-8 pb-28 max-w-5xl">
+        <div className="p-4 md:p-8 pb-28 max-w-5xl">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -166,15 +199,15 @@ function StickyUpdateButton() {
   };
 
   return (
-    <div className="fixed bottom-0 right-0 z-50 border-t border-[hsl(var(--border))] bg-white/90 backdrop-blur-xl" style={{ left: 'inherit', width: 'calc(100%)' }}>
-      <div className="px-8 py-4 flex items-center justify-between max-w-5xl">
-        <p className="text-sm text-muted-foreground">
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[hsl(var(--border))] bg-white/90 backdrop-blur-xl">
+      <div className="px-4 md:px-8 py-3 md:py-4 flex items-center justify-between max-w-5xl">
+        <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">
           {saved ? '✅ All changes saved!' : 'Make changes above, then save.'}
         </p>
         <Button
           onClick={handleSave}
           disabled={saving}
-          className={`px-8 h-11 text-sm font-semibold rounded-xl transition-all ${
+          className={`w-full sm:w-auto px-6 md:px-8 h-10 md:h-11 text-sm font-semibold rounded-xl transition-all ${
             saved
               ? 'bg-green-600 hover:bg-green-700 text-white'
               : 'bg-[#8B1A1A] hover:bg-[#6E1515] text-white shadow-lg shadow-[#8B1A1A]/20'

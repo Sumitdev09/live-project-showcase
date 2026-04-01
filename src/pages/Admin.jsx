@@ -169,6 +169,7 @@ export default function Admin() {
               transition={{ duration: 0.2 }}
             >
               {activeTab === 'profile' && <ProfileEditor profile={profile} />}
+              {activeTab === 'about' && <AboutEditor profile={profile} />}
               {activeTab === 'experience' && <ExperienceEditor experiences={experiences || []} />}
               {activeTab === 'education' && <EducationEditor education={education || []} />}
               {activeTab === 'projects' && <ProjectsEditor projects={projects || []} />}

@@ -1,37 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Target, Heart, Zap, Coffee, Users, Award } from 'lucide-react';
+import { GraduationCap, Target, Heart, Zap, Coffee, Users, Award, Sparkles, Star, Lightbulb, Rocket, Code, Palette, Globe } from 'lucide-react';
+
+const ICON_MAP = {
+  GraduationCap, Target, Heart, Zap, Coffee, Users, Award, Sparkles, Star, Lightbulb, Rocket, Code, Palette, Globe
+};
+
+const DEFAULT_STATS = [
+  { value: '10+', label: 'Projects Completed' },
+  { value: '15+', label: 'Happy Clients' },
+  { value: '3+', label: 'Years Learning' },
+  { value: '∞', label: 'Cups of Coffee' },
+];
+
+const DEFAULT_TRAITS = [
+  { title: 'Fresh Graduate', description: 'Recently graduated with a passion for digital innovation and creativity', icon: 'GraduationCap' },
+  { title: 'Goal-Oriented', description: 'Focused on delivering results that exceed expectations every time', icon: 'Target' },
+  { title: 'Passionate', description: 'Love turning creative ideas into beautiful digital reality', icon: 'Heart' },
+  { title: 'Fast Learner', description: 'Quick to adapt and master new technologies and methodologies', icon: 'Zap' },
+];
 
 export default function AboutSection({ profile }) {
-  const stats = [
-    { value: '10+', label: 'Projects Completed' },
-    { value: '15+', label: 'Happy Clients' },
-    { value: '3+', label: 'Years Learning' },
-    { value: '∞', label: 'Cups of Coffee' },
-  ];
-
-  const traits = [
-    {
-      title: 'Fresh Graduate',
-      description: 'Recently graduated with a passion for digital innovation and creativity',
-      icon: GraduationCap
-    },
-    {
-      title: 'Goal-Oriented',
-      description: 'Focused on delivering results that exceed expectations every time',
-      icon: Target
-    },
-    {
-      title: 'Passionate',
-      description: 'Love turning creative ideas into beautiful digital reality',
-      icon: Heart
-    },
-    {
-      title: 'Fast Learner',
-      description: 'Quick to adapt and master new technologies and methodologies',
-      icon: Zap
-    },
-  ];
+  const aboutData = profile?.interests || {};
+  const stats = aboutData.stats || DEFAULT_STATS;
+  const traits = aboutData.traits || DEFAULT_TRAITS;
+  const subtitle = aboutData.subtitle || 'A passionate creator at the intersection of design and technology';
 
   return (
     <section id="about" className="py-32 bg-[#f9f9f7] relative overflow-hidden" style={{ marginTop: 0 }}>
@@ -49,7 +42,7 @@ export default function AboutSection({ profile }) {
             Get to Know <span className="text-[#8B1A1A]">Me Better</span>
           </h2>
           <p className="text-[#666666] text-lg max-w-2xl mx-auto">
-            A passionate creator at the intersection of design and technology
+            {subtitle}
           </p>
         </motion.div>
 
@@ -105,15 +98,7 @@ export default function AboutSection({ profile }) {
                 Hello! I'm a Creative Professional
               </h3>
               <div className="space-y-4 text-[#666666] leading-relaxed">
-                <p>
-                  I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design. My journey started with a curiosity for how technology can transform ideas into impactful experiences.
-                </p>
-                <p>
-                  I believe in the power of combining technical expertise with creative thinking. Whether it's building responsive websites, crafting marketing strategies, or designing visual content, I approach every project with dedication and attention to detail.
-                </p>
-                <p>
-                  When I'm not working on projects, you can find me exploring new design trends, learning emerging technologies, or contributing to creative communities online.
-                </p>
+                <p>{profile?.bio || "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design."}</p>
               </div>
             </div>
 
@@ -142,27 +127,30 @@ export default function AboutSection({ profile }) {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {traits.map((trait, index) => (
-            <motion.div
-              key={trait.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="bg-white border border-[#e0e0e0] rounded-2xl p-8 text-center hover:border-[#8B1A1A] hover:shadow-lg transition-all group cursor-pointer"
-            >
+          {traits.map((trait, index) => {
+            const IconComponent = ICON_MAP[trait.icon] || Sparkles;
+            return (
               <motion.div
-                className="w-16 h-16 mx-auto mb-6 bg-[#8B1A1A]/10 border border-[#8B1A1A]/20 rounded-2xl flex items-center justify-center group-hover:bg-[#8B1A1A] transition-colors"
-                whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                transition={{ duration: 0.5 }}
+                key={trait.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-white border border-[#e0e0e0] rounded-2xl p-8 text-center hover:border-[#8B1A1A] hover:shadow-lg transition-all group cursor-pointer"
               >
-                <trait.icon className="w-8 h-8 text-[#8B1A1A] group-hover:text-white transition-colors" />
+                <motion.div
+                  className="w-16 h-16 mx-auto mb-6 bg-[#8B1A1A]/10 border border-[#8B1A1A]/20 rounded-2xl flex items-center justify-center group-hover:bg-[#8B1A1A] transition-colors"
+                  whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <IconComponent className="w-8 h-8 text-[#8B1A1A] group-hover:text-white transition-colors" />
+                </motion.div>
+                <h4 className="text-lg font-semibold text-[#1a1a1a] mb-3">{trait.title}</h4>
+                <p className="text-sm text-[#666666] leading-relaxed">{trait.description}</p>
               </motion.div>
-              <h4 className="text-lg font-semibold text-[#1a1a1a] mb-3">{trait.title}</h4>
-              <p className="text-sm text-[#666666] leading-relaxed">{trait.description}</p>
-            </motion.div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </section>

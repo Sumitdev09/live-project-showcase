@@ -13,6 +13,7 @@ import { createPageUrl } from "@/utils";
 // Admin components
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import ProfileEditor from '@/components/admin/ProfileEditor';
+import AboutEditor from '@/components/admin/AboutEditor';
 import ExperienceEditor from '@/components/admin/ExperienceEditor';
 import EducationEditor from '@/components/admin/EducationEditor';
 import ProjectsEditor from '@/components/admin/ProjectsEditor';
@@ -72,6 +73,7 @@ export default function Admin() {
 
   const SECTION_TITLES = {
     profile: { title: 'Profile', subtitle: 'Manage your personal information' },
+    about: { title: 'About Me', subtitle: 'Edit your about section content' },
     experience: { title: 'Experience', subtitle: 'Your professional journey' },
     education: { title: 'Education', subtitle: 'Academic background & qualifications' },
     projects: { title: 'Projects', subtitle: 'Showcase your portfolio work' },
@@ -167,6 +169,7 @@ export default function Admin() {
               transition={{ duration: 0.2 }}
             >
               {activeTab === 'profile' && <ProfileEditor profile={profile} />}
+              {activeTab === 'about' && <AboutEditor profile={profile} />}
               {activeTab === 'experience' && <ExperienceEditor experiences={experiences || []} />}
               {activeTab === 'education' && <EducationEditor education={education || []} />}
               {activeTab === 'projects' && <ProjectsEditor projects={projects || []} />}

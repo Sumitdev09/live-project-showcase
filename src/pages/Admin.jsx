@@ -22,6 +22,8 @@ export default function Admin() {
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState('profile');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+  const isMobile = useIsMobile();
   const navigate = useNavigate();
 
   // Check authentication

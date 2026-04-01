@@ -13,6 +13,7 @@ import { createPageUrl } from "@/utils";
 // Admin components
 import AdminSidebar from '@/components/admin/AdminSidebar';
 import ProfileEditor from '@/components/admin/ProfileEditor';
+import AboutEditor from '@/components/admin/AboutEditor';
 import ExperienceEditor from '@/components/admin/ExperienceEditor';
 import EducationEditor from '@/components/admin/EducationEditor';
 import ProjectsEditor from '@/components/admin/ProjectsEditor';

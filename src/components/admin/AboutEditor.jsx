@@ -38,7 +38,6 @@ export default function AboutEditor({ profile }) {
     } else if (profile && !isValidAboutData(profile?.interests)) {
       setFormData(DEFAULT_ABOUT);
     }
-    }
   }, [profile]);
 
   useEffect(() => {

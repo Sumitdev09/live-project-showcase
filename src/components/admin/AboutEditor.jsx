@@ -28,12 +28,16 @@ const DEFAULT_ABOUT = {
 
 export default function AboutEditor({ profile }) {
   const queryClient = useQueryClient();
-  const aboutData = profile?.interests || DEFAULT_ABOUT;
+  const isValidAboutData = (data) => data && typeof data === 'object' && !Array.isArray(data) && Object.keys(data).length > 0;
+  const aboutData = isValidAboutData(profile?.interests) ? profile.interests : DEFAULT_ABOUT;
   const [formData, setFormData] = useState(aboutData);
 
   useEffect(() => {
-    if (profile?.interests) {
+    if (isValidAboutData(profile?.interests)) {
       setFormData(profile.interests);
+    } else if (profile && !isValidAboutData(profile?.interests)) {
+      setFormData(DEFAULT_ABOUT);
+    }
     }
   }, [profile]);
 

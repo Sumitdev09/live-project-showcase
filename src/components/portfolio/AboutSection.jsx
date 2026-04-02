@@ -97,10 +97,10 @@ export default function AboutSection({ profile }) {
           >
             <div>
               <h3 className="text-3xl font-semibold text-[#1a1a1a] mb-6">
-                Hello! I'm a Creative Professional
+                {headline}
               </h3>
               <div className="space-y-4 text-[#666666] leading-relaxed">
-                <p>{profile?.bio || "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design."}</p>
+                <p>{description}</p>
               </div>
             </div>
 

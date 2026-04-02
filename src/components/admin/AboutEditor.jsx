@@ -8,7 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const DEFAULT_ABOUT = {
-  subtitle: 'A passionate creator at the intersection of design and technology',
+  headline: "Hello! I'm a Creative Professional",
+  subtitle: 'A passionate fresh graduate with expertise in web development, graphic design, and digital marketing. I create beautiful digital experiences that inspire and engage users.',
+  description: "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design.",
   stats: [
     { value: '10+', label: 'Projects Completed' },
     { value: '15+', label: 'Happy Clients' },

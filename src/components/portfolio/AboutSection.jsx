@@ -25,6 +25,8 @@ export default function AboutSection({ profile }) {
   const stats = aboutData.stats || DEFAULT_STATS;
   const traits = aboutData.traits || DEFAULT_TRAITS;
   const subtitle = aboutData.subtitle || 'A passionate creator at the intersection of design and technology';
+  const headline = aboutData.headline || "Hello! I'm a Creative Professional";
+  const description = aboutData.description || profile?.bio || "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design.";
 
   return (
     <section id="about" className="py-32 bg-[#f9f9f7] relative overflow-hidden" style={{ marginTop: 0 }}>
@@ -95,10 +97,10 @@ export default function AboutSection({ profile }) {
           >
             <div>
               <h3 className="text-3xl font-semibold text-[#1a1a1a] mb-6">
-                Hello! I'm a Creative Professional
+                {headline}
               </h3>
               <div className="space-y-4 text-[#666666] leading-relaxed">
-                <p>{profile?.bio || "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design."}</p>
+                <p>{description}</p>
               </div>
             </div>
 

@@ -8,7 +8,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
 const DEFAULT_ABOUT = {
-  subtitle: 'A passionate creator at the intersection of design and technology',
+  headline: "Hello! I'm a Creative Professional",
+  subtitle: 'A passionate fresh graduate with expertise in web development, graphic design, and digital marketing. I create beautiful digital experiences that inspire and engage users.',
+  description: "I'm a fresh graduate with a unique blend of skills in web development, digital marketing, and graphic design.",
   stats: [
     { value: '10+', label: 'Projects Completed' },
     { value: '15+', label: 'Happy Clients' },
@@ -100,7 +102,19 @@ export default function AboutEditor({ profile }) {
 
   return (
     <div className="space-y-6">
-      {/* Subtitle */}
+      {/* Headline */}
+      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 md:p-6">
+        <h3 className="text-base font-bold mb-4 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-[#8B1A1A]" /> Headline
+        </h3>
+        <Input
+          value={formData.headline || ''}
+          onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
+          placeholder="Hello! I'm a Creative Professional"
+        />
+      </div>
+
+      {/* Subtitle / Intro Paragraph */}
       <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 md:p-6">
         <h3 className="text-base font-bold mb-4 flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-[#8B1A1A]" /> Section Subtitle
@@ -108,8 +122,22 @@ export default function AboutEditor({ profile }) {
         <Textarea
           value={formData.subtitle || ''}
           onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-          placeholder="A short description about yourself..."
+          placeholder="A short description shown below the section title..."
           rows={2}
+          className="resize-none"
+        />
+      </div>
+
+      {/* Description */}
+      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5 md:p-6">
+        <h3 className="text-base font-bold mb-4 flex items-center gap-2">
+          <Sparkles className="w-4 h-4 text-[#8B1A1A]" /> Description Paragraph
+        </h3>
+        <Textarea
+          value={formData.description || ''}
+          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+          placeholder="A detailed paragraph about yourself..."
+          rows={4}
           className="resize-none"
         />
       </div>

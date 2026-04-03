@@ -190,6 +190,7 @@ export default function Admin() {
 function StickyUpdateButton() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const isMobile = useIsMobile();
 
   const handleSave = () => {
     setSaving(true);
@@ -197,70 +198,101 @@ function StickyUpdateButton() {
     setTimeout(() => {
       setSaving(false);
       setSaved(true);
-      setTimeout(() => setSaved(false), 2500);
+      setTimeout(() => setSaved(false), 3000);
     }, 1200);
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50">
-      {/* Gradient border top */}
-      <div className="h-[2px] bg-gradient-to-r from-transparent via-[#8B1A1A] to-transparent" />
-      
-      <div className="bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-xl border-t border-[hsl(var(--border))]">
-        <div className="px-4 sm:px-6 md:px-8 py-3 sm:py-4 flex items-center justify-between gap-3 max-w-5xl mx-auto">
-          {/* Status text */}
-          <div className="hidden sm:flex items-center gap-2 min-w-0">
-            {saved ? (
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="flex items-center gap-2 text-green-600"
-              >
-                <CheckCircle className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm font-medium truncate">All changes saved!</span>
-              </motion.div>
-            ) : (
-              <p className="text-xs sm:text-sm text-muted-foreground truncate">
-                Make changes above, then save.
-              </p>
-            )}
-          </div>
+    <div className="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-auto sm:right-6 z-50">
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30, delay: 0.3 }}
+      >
+        <div className="relative overflow-hidden rounded-2xl shadow-2xl shadow-black/20">
+          {/* Animated gradient border */}
+          <div className="absolute inset-0 rounded-2xl p-[1.5px] bg-gradient-to-r from-[#8B1A1A] via-[#c0392b] to-[#8B1A1A] animate-[spin_6s_linear_infinite]" style={{ backgroundSize: '200% 200%', animation: 'gradientShift 4s ease infinite' }} />
+          
+          <div className="relative bg-[#1a1a1a] rounded-2xl px-4 py-3 sm:px-6 sm:py-4 flex items-center gap-3 sm:gap-5">
+            {/* Status indicator */}
+            <AnimatePresence mode="wait">
+              {saved ? (
+                <motion.div
+                  key="saved"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  className="flex items-center gap-2 sm:gap-3 min-w-0"
+                >
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" />
+                  </div>
+                  <div className="min-w-0 hidden sm:block">
+                    <p className="text-sm font-semibold text-emerald-400 truncate">Changes saved!</p>
+                    <p className="text-[10px] text-white/40 truncate">All updates applied successfully</p>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="idle"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  className="flex items-center gap-2 sm:gap-3 min-w-0"
+                >
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#8B1A1A]/20 flex items-center justify-center flex-shrink-0">
+                    <Save className="w-4 h-4 sm:w-5 sm:h-5 text-[#c0392b]" />
+                  </div>
+                  <div className="min-w-0 hidden sm:block">
+                    <p className="text-sm font-semibold text-white/90 truncate">Unsaved changes</p>
+                    <p className="text-[10px] text-white/40 truncate">Click to save your updates</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-          {/* Save button */}
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.97 }}
-            className="w-full sm:w-auto"
-          >
-            <Button
+            {/* Save button */}
+            <motion.button
               onClick={handleSave}
               disabled={saving}
-              className={`w-full sm:w-auto px-5 sm:px-8 h-11 sm:h-12 text-sm font-bold rounded-xl transition-all duration-300 ${
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.96 }}
+              className={`ml-auto relative overflow-hidden px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl font-bold text-sm sm:text-base text-white transition-all duration-300 disabled:opacity-70 ${
                 saved
-                  ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/25'
-                  : 'bg-gradient-to-r from-[#8B1A1A] to-[#a52020] hover:from-[#6E1515] hover:to-[#8B1A1A] text-white shadow-lg shadow-[#8B1A1A]/30 hover:shadow-xl hover:shadow-[#8B1A1A]/40'
+                  ? 'bg-emerald-500 shadow-lg shadow-emerald-500/30'
+                  : 'bg-gradient-to-r from-[#8B1A1A] to-[#c0392b] shadow-lg shadow-[#8B1A1A]/40 hover:shadow-xl hover:shadow-[#8B1A1A]/50'
               }`}
             >
-              {saving ? (
-                <span className="flex items-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Saving...</span>
-                </span>
-              ) : saved ? (
-                <span className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" />
-                  <span>Saved!</span>
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <Save className="w-4 h-4" />
-                  <span>Update Changes</span>
-                </span>
+              {/* Shine effect */}
+              {!saving && !saved && (
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+                />
               )}
-            </Button>
-          </motion.div>
+              <span className="relative flex items-center gap-2">
+                {saving ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span className="hidden sm:inline">Saving...</span>
+                  </>
+                ) : saved ? (
+                  <>
+                    <CheckCircle className="w-4 h-4" />
+                    <span className="hidden sm:inline">Saved!</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4" />
+                    <span>Update</span>
+                  </>
+                )}
+              </span>
+            </motion.button>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

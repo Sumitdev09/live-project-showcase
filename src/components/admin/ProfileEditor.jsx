@@ -17,7 +17,7 @@ export default function ProfileEditor({ profile }) {
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState(profile || {});
   const [isUploading, setIsUploading] = useState(false);
-  const [skillInput, setSkillInput] = useState('');
+  
 
   useEffect(() => {
     const handleGlobalSave = () => {
@@ -50,24 +50,6 @@ export default function ProfileEditor({ profile }) {
     setIsUploading(false);
   };
 
-  const addSkill = () => {
-    if (!skillInput.trim()) return;
-    const skills = formData.skills || [];
-    setFormData({ ...formData, skills: [...skills, { name: skillInput, level: 80 }] });
-    setSkillInput('');
-  };
-
-  const updateSkillLevel = (index, level) => {
-    const skills = [...(formData.skills || [])];
-    skills[index].level = parseInt(level);
-    setFormData({ ...formData, skills });
-  };
-
-  const removeSkill = (index) => {
-    const skills = [...(formData.skills || [])];
-    skills.splice(index, 1);
-    setFormData({ ...formData, skills });
-  };
 
   return (
     <div className="space-y-8">
@@ -159,39 +141,6 @@ export default function ProfileEditor({ profile }) {
                 placeholder={`https://${key}.com/...`}
                 className="h-10"
               />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Skills */}
-      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6">
-        <h3 className="text-base font-bold mb-4">⚡ Quick Skills</h3>
-        <div className="flex gap-2 mb-4">
-          <Input
-            value={skillInput}
-            onChange={(e) => setSkillInput(e.target.value)}
-            placeholder="Add a skill..."
-            onKeyPress={(e) => e.key === 'Enter' && addSkill()}
-            className="h-10"
-          />
-          <Button onClick={addSkill} size="sm" className="bg-[#8B1A1A] hover:bg-[#6E1515] text-white h-10 px-4">
-            <Plus className="w-4 h-4" />
-          </Button>
-        </div>
-        <div className="space-y-2.5">
-          {(formData.skills || []).map((skill, index) => (
-            <div key={index} className="flex items-center gap-3 p-3 bg-[hsl(var(--muted))] rounded-xl group">
-              <span className="font-medium text-sm min-w-[100px]">{skill.name}</span>
-              <input
-                type="range" min="0" max="100" value={skill.level}
-                onChange={(e) => updateSkillLevel(index, e.target.value)}
-                className="flex-1 accent-[#8B1A1A] h-1.5"
-              />
-              <span className="text-xs font-bold text-[#8B1A1A] w-10 text-right">{skill.level}%</span>
-              <button onClick={() => removeSkill(index)} className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-100 rounded-lg">
-                <X className="w-3.5 h-3.5 text-red-500" />
-              </button>
             </div>
           ))}
         </div>

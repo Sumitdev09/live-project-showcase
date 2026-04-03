@@ -1,0 +1,1 @@
+ALTER TABLE public.profiles ADD COLUMN developer1_url text, ADD COLUMN developer2_url text;

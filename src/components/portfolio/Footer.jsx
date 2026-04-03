@@ -50,7 +50,18 @@ export default function Footer({ profile }) {
          
           <div className="flex items-center gap-6">
             <p className="text-[#666666] text-sm">
-              Design & Develop by Sumit Yadav <span className="text-[#8B1A1A]">X</span> Janhavi Dev
+              Design & Develop by{' '}
+              {profile?.developer1_url ? (
+                <a href={profile.developer1_url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#8B1A1A] transition-colors">Sumit Yadav</a>
+              ) : (
+                <span className="text-white">Sumit Yadav</span>
+              )}
+              {' '}<span className="text-[#8B1A1A]">X</span>{' '}
+              {profile?.developer2_url ? (
+                <a href={profile.developer2_url} target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#8B1A1A] transition-colors">Janhavi Dev</a>
+              ) : (
+                <span className="text-white">Janhavi Dev</span>
+              )}
             </p>
            
             <motion.button

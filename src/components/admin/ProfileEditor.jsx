@@ -106,8 +106,25 @@ export default function ProfileEditor({ profile }) {
             <Input value={formData.location || ''} onChange={(e) => setFormData({ ...formData, location: e.target.value })} placeholder="Mumbai, India" className="h-10" />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs text-muted-foreground flex items-center gap-1.5"><LinkIcon className="w-3 h-3" /> Download CV Link</Label>
+           <Label className="text-xs text-muted-foreground flex items-center gap-1.5"><LinkIcon className="w-3 h-3" /> Download CV Link</Label>
             <Input value={formData.resume_url || ''} onChange={(e) => setFormData({ ...formData, resume_url: e.target.value })} placeholder="https://drive.google.com/your-cv" className="h-10" />
+          </div>
+        </div>
+      </div>
+
+      {/* Developer Links (Footer) */}
+      <div className="rounded-2xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6">
+        <h3 className="text-base font-bold mb-5 flex items-center gap-2">
+          <LinkIcon className="w-4 h-4 text-[#8B1A1A]" /> Footer Developer Links
+        </h3>
+        <div className="grid md:grid-cols-2 gap-5">
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Sumit Yadav Profile Link</Label>
+            <Input value={formData.developer1_url || ''} onChange={(e) => setFormData({ ...formData, developer1_url: e.target.value })} placeholder="https://linkedin.com/in/sumit-yadav" className="h-10" />
+          </div>
+          <div className="space-y-1.5">
+            <Label className="text-xs text-muted-foreground">Janhavi Dev Profile Link</Label>
+            <Input value={formData.developer2_url || ''} onChange={(e) => setFormData({ ...formData, developer2_url: e.target.value })} placeholder="https://linkedin.com/in/janhavi-dev" className="h-10" />
           </div>
         </div>
       </div>

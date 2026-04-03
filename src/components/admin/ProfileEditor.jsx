@@ -17,7 +17,7 @@ export default function ProfileEditor({ profile }) {
   const queryClient = useQueryClient();
   const [formData, setFormData] = useState(profile || {});
   const [isUploading, setIsUploading] = useState(false);
-  const [skillInput, setSkillInput] = useState('');
+  
 
   useEffect(() => {
     const handleGlobalSave = () => {

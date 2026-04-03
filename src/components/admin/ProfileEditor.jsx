@@ -50,24 +50,6 @@ export default function ProfileEditor({ profile }) {
     setIsUploading(false);
   };
 
-  const addSkill = () => {
-    if (!skillInput.trim()) return;
-    const skills = formData.skills || [];
-    setFormData({ ...formData, skills: [...skills, { name: skillInput, level: 80 }] });
-    setSkillInput('');
-  };
-
-  const updateSkillLevel = (index, level) => {
-    const skills = [...(formData.skills || [])];
-    skills[index].level = parseInt(level);
-    setFormData({ ...formData, skills });
-  };
-
-  const removeSkill = (index) => {
-    const skills = [...(formData.skills || [])];
-    skills.splice(index, 1);
-    setFormData({ ...formData, skills });
-  };
 
   return (
     <div className="space-y-8">

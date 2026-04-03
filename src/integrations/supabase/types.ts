@@ -151,6 +151,8 @@ export type Database = {
           achievements: Json | null
           bio: string | null
           created_at: string
+          developer1_url: string | null
+          developer2_url: string | null
           email: string | null
           full_name: string | null
           github: string | null
@@ -173,6 +175,8 @@ export type Database = {
           achievements?: Json | null
           bio?: string | null
           created_at?: string
+          developer1_url?: string | null
+          developer2_url?: string | null
           email?: string | null
           full_name?: string | null
           github?: string | null
@@ -195,6 +199,8 @@ export type Database = {
           achievements?: Json | null
           bio?: string | null
           created_at?: string
+          developer1_url?: string | null
+          developer2_url?: string | null
           email?: string | null
           full_name?: string | null
           github?: string | null

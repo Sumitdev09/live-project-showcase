@@ -202,28 +202,64 @@ function StickyUpdateButton() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[hsl(var(--border))] bg-white/90 backdrop-blur-xl">
-      <div className="px-4 md:px-8 py-3 md:py-4 flex items-center justify-between max-w-5xl">
-        <p className="text-xs md:text-sm text-muted-foreground hidden sm:block">
-          {saved ? '✅ All changes saved!' : 'Make changes above, then save.'}
-        </p>
-        <Button
-          onClick={handleSave}
-          disabled={saving}
-          className={`w-full sm:w-auto px-6 md:px-8 h-10 md:h-11 text-sm font-semibold rounded-xl transition-all ${
-            saved
-              ? 'bg-green-600 hover:bg-green-700 text-white'
-              : 'bg-[#8B1A1A] hover:bg-[#6E1515] text-white shadow-lg shadow-[#8B1A1A]/20'
-          }`}
-        >
-          {saving ? (
-            <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Saving...</>
-          ) : saved ? (
-            <><CheckCircle className="w-4 h-4 mr-2" /> Saved!</>
-          ) : (
-            <><Save className="w-4 h-4 mr-2" /> Update Changes</>
-          )}
-        </Button>
+    <div className="fixed bottom-0 left-0 right-0 z-50">
+      {/* Gradient border top */}
+      <div className="h-[2px] bg-gradient-to-r from-transparent via-[#8B1A1A] to-transparent" />
+      
+      <div className="bg-white/95 dark:bg-[#1a1a1a]/95 backdrop-blur-xl border-t border-[hsl(var(--border))]">
+        <div className="px-4 sm:px-6 md:px-8 py-3 sm:py-4 flex items-center justify-between gap-3 max-w-5xl mx-auto">
+          {/* Status text */}
+          <div className="hidden sm:flex items-center gap-2 min-w-0">
+            {saved ? (
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="flex items-center gap-2 text-green-600"
+              >
+                <CheckCircle className="w-4 h-4 flex-shrink-0" />
+                <span className="text-sm font-medium truncate">All changes saved!</span>
+              </motion.div>
+            ) : (
+              <p className="text-xs sm:text-sm text-muted-foreground truncate">
+                Make changes above, then save.
+              </p>
+            )}
+          </div>
+
+          {/* Save button */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="w-full sm:w-auto"
+          >
+            <Button
+              onClick={handleSave}
+              disabled={saving}
+              className={`w-full sm:w-auto px-5 sm:px-8 h-11 sm:h-12 text-sm font-bold rounded-xl transition-all duration-300 ${
+                saved
+                  ? 'bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-600/25'
+                  : 'bg-gradient-to-r from-[#8B1A1A] to-[#a52020] hover:from-[#6E1515] hover:to-[#8B1A1A] text-white shadow-lg shadow-[#8B1A1A]/30 hover:shadow-xl hover:shadow-[#8B1A1A]/40'
+              }`}
+            >
+              {saving ? (
+                <span className="flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Saving...</span>
+                </span>
+              ) : saved ? (
+                <span className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" />
+                  <span>Saved!</span>
+                </span>
+              ) : (
+                <span className="flex items-center gap-2">
+                  <Save className="w-4 h-4" />
+                  <span>Update Changes</span>
+                </span>
+              )}
+            </Button>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

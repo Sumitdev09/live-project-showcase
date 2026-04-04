@@ -45,50 +45,73 @@ export default function Home() {
 
   if (loadingProfile) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center relative overflow-hidden">
-        {/* Ambient glow */}
+      <div className="min-h-screen bg-[#FAF9F6] flex flex-col items-center justify-center relative overflow-hidden">
+        {/* Decorative maroon circles */}
         <motion.div
-          className="absolute w-[500px] h-[500px] rounded-full opacity-20"
-          style={{ background: 'radial-gradient(circle, #9EB89D 0%, transparent 70%)' }}
-          animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.25, 0.15] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute w-[600px] h-[600px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(139,26,26,0.08) 0%, transparent 70%)' }}
+          animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="absolute w-[300px] h-[300px] rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(139,26,26,0.05) 0%, transparent 70%)' }}
+          animate={{ scale: [1.2, 1, 1.2], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
         />
 
         {/* Initials */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="relative z-10 mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="relative z-10 mb-6"
         >
-          <span className="font-caveat text-6xl md:text-7xl font-bold text-white tracking-tight">
-            S<span style={{ color: '#9EB89D' }}>Y</span>
+          <span className="font-caveat text-7xl md:text-8xl font-bold tracking-tight"
+            style={{ color: '#8B1A1A' }}>
+            S<span style={{ color: '#A52828' }}>Y</span>
           </span>
         </motion.div>
 
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="relative z-10 mb-8 text-sm tracking-[0.2em] uppercase font-jost"
+          style={{ color: '#8B1A1A', opacity: 0.6 }}
+        >
+          Portfolio
+        </motion.p>
+
         {/* Loading bar */}
         <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scaleX: 0.8 }}
+          animate={{ opacity: 1, scaleX: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="relative z-10 w-48 h-[2px] bg-white/10 rounded-full overflow-hidden"
+          className="relative z-10 w-48 h-[3px] rounded-full overflow-hidden"
+          style={{ backgroundColor: 'rgba(139,26,26,0.1)' }}
         >
           <motion.div
             className="h-full rounded-full"
-            style={{ background: 'linear-gradient(90deg, #7A9A79, #B8D4B8)' }}
+            style={{ background: 'linear-gradient(90deg, #8B1A1A, #A52828, #8B1A1A)' }}
             animate={{ x: ['-100%', '100%'] }}
-            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
           />
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.5 }}
-          transition={{ delay: 0.6 }}
-          className="relative z-10 mt-5 text-white/40 text-xs tracking-[0.3em] uppercase font-jost"
-        >
-          Loading Portfolio
-        </motion.p>
+        {/* Three bouncing dots */}
+        <div className="relative z-10 mt-6 flex gap-2">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              className="w-2 h-2 rounded-full"
+              style={{ backgroundColor: '#8B1A1A' }}
+              animate={{ y: [0, -8, 0], opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.15, ease: 'easeInOut' }}
+            />
+          ))}
+        </div>
       </div>
     );
   }

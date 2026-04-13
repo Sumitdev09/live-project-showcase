@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin";
 import AdminLogin from "./pages/AdminLogin";
 import AllProjects from "./pages/AllProjects";
+import AllCertificates from "./pages/AllCertificates";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/Admin" element={<Admin />} />
           <Route path="/AdminLogin" element={<AdminLogin />} />
           <Route path="/AllProjects" element={<AllProjects />} />
+          <Route path="/AllCertificates" element={<AllCertificates />} />
           <Route path="/Blog" element={<Blog />} />
           <Route path="/BlogPost" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />

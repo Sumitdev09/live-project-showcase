@@ -10,6 +10,7 @@ const TABLE_MAP = {
   BlogPost: 'blog_posts',
   ContactMessage: 'contact_messages',
   SkillCategory: 'skill_categories',
+  Certificate: 'certificates',
 };
 
 // Map old field names to new DB column names
@@ -142,6 +143,7 @@ export const base44 = {
     BlogPost: createEntityClient('BlogPost'),
     ContactMessage: createEntityClient('ContactMessage'),
     SkillCategory: createEntityClient('SkillCategory'),
+    Certificate: createEntityClient('Certificate'),
   },
   integrations: {
     Core: {

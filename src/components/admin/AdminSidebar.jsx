@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import {
   User, Briefcase, GraduationCap, Folder, BookOpen, MessageSquare, BarChart3,
-  ArrowLeft, LogOut, ChevronLeft, ChevronRight, Home, Settings
+  ArrowLeft, LogOut, ChevronLeft, ChevronRight, Home, Settings, Award
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from "@/utils";
@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { id: 'experience', label: 'Experience', icon: Briefcase, description: 'Work history' },
   { id: 'education', label: 'Education', icon: GraduationCap, description: 'Academic background' },
   { id: 'projects', label: 'Projects', icon: Folder, description: 'Portfolio projects' },
+  { id: 'certificates', label: 'Certificates', icon: Award, description: 'Achievements & awards' },
   { id: 'skills', label: 'Skills', icon: BarChart3, description: 'Skill categories & stats' },
   { id: 'blog', label: 'Blog', icon: BookOpen, description: 'Blog posts' },
   { id: 'messages', label: 'Messages', icon: MessageSquare, description: 'Contact messages' },

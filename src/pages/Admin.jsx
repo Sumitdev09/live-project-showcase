@@ -20,6 +20,7 @@ import ProjectsEditor from '@/components/admin/ProjectsEditor';
 import SkillsEditor from '@/components/admin/SkillsEditor';
 import BlogEditor from '@/components/admin/BlogEditor';
 import MessagesViewer from '@/components/admin/MessagesViewer';
+import CertificatesEditor from '@/components/admin/CertificatesEditor';
 
 export default function Admin() {
   const queryClient = useQueryClient();
@@ -77,6 +78,7 @@ export default function Admin() {
     experience: { title: 'Experience', subtitle: 'Your professional journey' },
     education: { title: 'Education', subtitle: 'Academic background & qualifications' },
     projects: { title: 'Projects', subtitle: 'Showcase your portfolio work' },
+    certificates: { title: 'Certificates', subtitle: 'Achievements & awards' },
     skills: { title: 'Skills', subtitle: 'Technical expertise & stats' },
     blog: { title: 'Blog', subtitle: 'Articles & blog posts' },
     messages: { title: 'Messages', subtitle: `${unreadMessages} unread message${unreadMessages !== 1 ? 's' : ''}` },
@@ -173,6 +175,7 @@ export default function Admin() {
               {activeTab === 'experience' && <ExperienceEditor experiences={experiences || []} />}
               {activeTab === 'education' && <EducationEditor education={education || []} />}
               {activeTab === 'projects' && <ProjectsEditor projects={projects || []} />}
+              {activeTab === 'certificates' && <CertificatesEditor />}
               {activeTab === 'skills' && <SkillsEditor />}
               {activeTab === 'blog' && <BlogEditor posts={blogPosts || []} />}
               {activeTab === 'messages' && <MessagesViewer messages={messages || []} />}

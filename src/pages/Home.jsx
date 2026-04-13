@@ -11,6 +11,7 @@ import CareerSection from '@/components/portfolio/CareerSection';
 import ProjectsSection from '@/components/portfolio/ProjectsSection';
 import BlogSection from '@/components/portfolio/BlogSection';
 import ContactSection from '@/components/portfolio/ContactSection';
+import CertificatesSection from '@/components/portfolio/CertificatesSection';
 
 import Footer from '@/components/portfolio/Footer';
 import SectionDivider from '@/components/portfolio/SectionDivider';
@@ -34,6 +35,11 @@ export default function Home() {
   const { data: projects } = useQuery({
     queryKey: ['projects'],
     queryFn: () => base44.entities.Project.list(),
+  });
+
+  const { data: certificates } = useQuery({
+    queryKey: ['certificates'],
+    queryFn: () => base44.entities.Certificate.list('-created_date'),
   });
 
   const { data: posts } = useQuery({
@@ -148,6 +154,7 @@ export default function Home() {
       <AboutSection profile={profile} />
       <SkillsSection />
       <CareerSection experiences={experiences || []} education={education || []} profile={profile} />
+      <CertificatesSection certificates={certificates || []} />
       <ProjectsSection projects={projects || []} />
       <BlogSection posts={posts || []} />
       <ContactSection profile={profile} />

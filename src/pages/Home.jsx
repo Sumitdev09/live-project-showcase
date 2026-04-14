@@ -154,7 +154,7 @@ export default function Home() {
       <AboutSection profile={profile} />
       <SkillsSection />
       <CareerSection experiences={experiences || []} education={education || []} profile={profile} />
-      <CertificatesSection certificates={certificates || []} />
+      
       <ProjectsSection projects={projects || []} />
       <CertificatesSection certificates={certificates || []} />
       <BlogSection posts={posts || []} />

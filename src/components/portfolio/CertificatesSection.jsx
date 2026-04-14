@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, ExternalLink, ArrowRight, X } from 'lucide-react';
+import { Award, ExternalLink, ArrowRight, X, Calendar, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from "@/utils";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 export default function CertificatesSection({ certificates }) {
   const [selected, setSelected] = useState(null);
@@ -108,49 +107,127 @@ export default function CertificatesSection({ certificates }) {
         )}
       </div>
 
-      {/* Detail Dialog */}
-      <Dialog open={!!selected} onOpenChange={() => setSelected(null)}>
-        <DialogContent className="max-w-lg sm:max-w-2xl bg-white rounded-2xl border-none p-0 overflow-hidden">
-          {selected && (
-            <>
-              {selected.image_url && (
-                <div className="w-full h-48 sm:h-64 overflow-hidden bg-[#f5f0f0]">
-                  <img src={selected.image_url} alt={selected.title} className="w-full h-full object-contain bg-white" />
-                </div>
-              )}
-              <div className="p-6 sm:p-8">
-                <DialogHeader>
-                  {selected.issuer && (
-                    <p className="text-sm text-[#8B1A1A] font-medium mb-1">{selected.issuer}</p>
-                  )}
-                  <DialogTitle className="text-xl sm:text-2xl font-bold text-[#1a1a1a]">
-                    {selected.title}
-                  </DialogTitle>
-                  {selected.issue_date && (
-                    <p className="text-sm text-[#999999] mt-1">{selected.issue_date}</p>
-                  )}
-                </DialogHeader>
-                {selected.description && (
-                  <DialogDescription className="mt-4 text-[#555555] leading-relaxed text-base">
-                    {selected.description}
-                  </DialogDescription>
+      {/* Premium Detail Modal */}
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+            onClick={() => setSelected(null)}
+          >
+            {/* Backdrop with blur */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/70 backdrop-blur-md"
+            />
+
+            {/* Modal Content */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.85, y: 40 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-3xl shadow-2xl"
+            >
+              {/* Close button */}
+              <button
+                onClick={() => setSelected(null)}
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-black/60 transition-all duration-200 hover:scale-110"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Top: Certificate Image with gradient overlay */}
+              <div className="relative">
+                {selected.image_url ? (
+                  <div className="relative h-56 sm:h-72 md:h-80 overflow-hidden bg-[#0a0a0a]">
+                    <img
+                      src={selected.image_url}
+                      alt={selected.title}
+                      className="w-full h-full object-contain"
+                    />
+                    {/* Gradient overlay at bottom for smooth transition */}
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
+                  </div>
+                ) : (
+                  <div className="h-40 bg-gradient-to-br from-[#8B1A1A] to-[#4a0e0e] flex items-center justify-center">
+                    <Award className="w-16 h-16 text-white/30" />
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
+                  </div>
                 )}
+
+                {/* Floating Award Badge */}
+                <div className="absolute -bottom-6 left-8 w-14 h-14 rounded-2xl bg-gradient-to-br from-[#8B1A1A] to-[#c0392b] shadow-lg shadow-[#8B1A1A]/30 flex items-center justify-center border-4 border-[#0f0f0f]">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+              </div>
+
+              {/* Bottom: Content area with dark theme */}
+              <div className="bg-[#0f0f0f] px-6 sm:px-8 pt-10 pb-8">
+                {/* Issuer & Date Row */}
+                <div className="flex flex-wrap items-center gap-4 mb-4">
+                  {selected.issuer && (
+                    <div className="flex items-center gap-2">
+                      <Building2 className="w-4 h-4 text-[#8B1A1A]" />
+                      <span className="text-sm font-semibold text-[#8B1A1A]">{selected.issuer}</span>
+                    </div>
+                  )}
+                  {selected.issue_date && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-white/40" />
+                      <span className="text-sm text-white/50">{selected.issue_date}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-4">
+                  {selected.title}
+                </h3>
+
+                {/* Decorative line */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="h-[2px] w-12 bg-gradient-to-r from-[#8B1A1A] to-transparent rounded-full" />
+                  <div className="h-[2px] w-6 bg-[#8B1A1A]/40 rounded-full" />
+                  <div className="h-[2px] w-3 bg-[#8B1A1A]/20 rounded-full" />
+                </div>
+
+                {/* Description */}
+                {selected.description && (
+                  <p className="text-white/60 leading-relaxed text-base mb-6">
+                    {selected.description}
+                  </p>
+                )}
+
+                {/* CTA Button */}
                 {selected.credential_url && (
-                  <a
+                  <motion.a
                     href={selected.credential_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-[#8B1A1A] text-white rounded-xl font-medium text-sm hover:bg-[#6E1515] transition-colors"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-2.5 px-6 py-3 bg-gradient-to-r from-[#8B1A1A] to-[#a52828] text-white rounded-xl font-semibold text-sm shadow-lg shadow-[#8B1A1A]/25 hover:shadow-[#8B1A1A]/40 transition-shadow duration-300"
                   >
                     <ExternalLink className="w-4 h-4" />
                     View Credential
-                  </a>
+                  </motion.a>
                 )}
               </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
+
+              {/* Subtle corner accents */}
+              <div className="absolute top-0 left-0 w-20 h-20 border-t-2 border-l-2 border-[#8B1A1A]/20 rounded-tl-3xl pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-20 h-20 border-b-2 border-r-2 border-[#8B1A1A]/20 rounded-br-3xl pointer-events-none" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

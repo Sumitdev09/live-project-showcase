@@ -107,7 +107,7 @@ export default function CertificatesSection({ certificates }) {
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+              className="relative w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden"
             >
               {/* Close */}
               <button
@@ -119,11 +119,11 @@ export default function CertificatesSection({ certificates }) {
 
               {/* Certificate Image - Full Width */}
               {selected.image_url ? (
-                <div className="w-full bg-[#f9f7f5] p-6 sm:p-8 flex items-center justify-center">
+                <div className="w-full bg-[#f9f7f5] p-8 sm:p-10 flex items-center justify-center">
                   <img
                     src={selected.image_url}
                     alt={selected.title}
-                    className="w-full max-h-[400px] object-contain rounded-lg"
+                    className="w-full max-h-[50vh] object-contain rounded-lg shadow-sm"
                   />
                 </div>
               ) : (
@@ -135,7 +135,7 @@ export default function CertificatesSection({ certificates }) {
               {/* Details Below */}
               <div className="p-6 sm:p-8 border-t border-[#f0eeec]">
                 {/* Issuer & Date */}
-                <div className="flex flex-wrap items-center gap-3 mb-3">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
                   {selected.issuer && (
                     <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#8B1A1A]/8 border border-[#8B1A1A]/15">
                       <Building2 className="w-3.5 h-3.5 text-[#8B1A1A]" />
@@ -151,13 +151,13 @@ export default function CertificatesSection({ certificates }) {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl font-bold text-[#1a1a1a] leading-tight mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-[#1a1a1a] leading-tight mb-2">
                   {selected.title}
                 </h3>
 
                 {/* Description */}
                 {selected.description && (
-                  <p className="text-[#666] text-sm leading-relaxed mb-5">
+                  <p className="text-[#666] text-sm leading-relaxed mb-4">
                     {selected.description}
                   </p>
                 )}
@@ -168,7 +168,7 @@ export default function CertificatesSection({ certificates }) {
                     href={selected.credential_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8B1A1A] text-white rounded-lg font-semibold text-sm hover:bg-[#6E1515] transition-colors duration-200"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#8B1A1A] text-white rounded-lg font-semibold text-sm hover:bg-[#6E1515] transition-colors duration-200 shadow-md hover:shadow-lg"
                   >
                     <ExternalLink className="w-4 h-4" />
                     View Credential

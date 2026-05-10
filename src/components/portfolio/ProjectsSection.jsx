@@ -4,6 +4,7 @@ import { ExternalLink, Github, ArrowUpRight, Star, Code2, Palette, TrendingUp, E
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
 import { createPageUrl } from "@/utils";
+import Reactions from './Reactions';
 
 export default function ProjectsSection({ projects }) {
   if (!projects || projects.length === 0) return null;
@@ -128,6 +129,10 @@ export default function ProjectsSection({ projects }) {
                       </div>
                     )}
 
+                    <div className="mb-6">
+                      <Reactions targetType="project" targetId={project.id} />
+                    </div>
+
                     <div className="flex flex-wrap gap-3">
                       {links.map(link => (
                         <Button
@@ -210,6 +215,10 @@ export default function ProjectsSection({ projects }) {
                                 ))}
                               </div>
                             )}
+
+                            <div className="mb-3">
+                              <Reactions targetType="project" targetId={project.id} size="sm" />
+                            </div>
 
                             {/* Action Buttons */}
                             <div className="flex gap-2 pt-4 border-t border-[#f0f0f0]">

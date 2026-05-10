@@ -9,6 +9,7 @@ import { ArrowLeft, Clock, User, Tag, Share2, Twitter, Linkedin, Facebook } from
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import ReactMarkdown from 'react-markdown';
+import Reactions from '@/components/portfolio/Reactions';
 
 export default function BlogPost() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -155,12 +156,23 @@ export default function BlogPost() {
             <ReactMarkdown>{post.content}</ReactMarkdown>
           </motion.div>
 
+          {/* Reactions */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.25 }}
+            className="mt-16 pt-8 border-t border-[#e0e0e0]"
+          >
+            <p className="text-sm font-medium text-[#666666] mb-3">Did this help? Leave a reaction</p>
+            <Reactions targetType="blog_post" targetId={post.id} />
+          </motion.div>
+
           {/* Share */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="mt-16 pt-8 border-t border-[#e0e0e0]"
+            className="mt-10 pt-8 border-t border-[#e0e0e0]"
           >
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3 text-[#666666]">

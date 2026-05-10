@@ -12,6 +12,7 @@ import ProjectsSection from '@/components/portfolio/ProjectsSection';
 import BlogSection from '@/components/portfolio/BlogSection';
 import ContactSection from '@/components/portfolio/ContactSection';
 import CertificatesSection from '@/components/portfolio/CertificatesSection';
+import AskSumitChat from '@/components/portfolio/AskSumitChat';
 
 import Footer from '@/components/portfolio/Footer';
 import SectionDivider from '@/components/portfolio/SectionDivider';
@@ -161,6 +162,7 @@ export default function Home() {
       <ContactSection profile={profile} />
       
       <Footer profile={profile} />
+      <AskSumitChat profile={profile} />
     </div>
   );
 }
